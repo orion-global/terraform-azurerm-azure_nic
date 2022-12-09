@@ -2,7 +2,7 @@
 # Default variables
 #------------------------------------------------------------------------------------------
 
-variable "location" {
+variable "location_name" {
   description = "The Azure location where all resources in this example should be created."
   type        = string
   default     = null
