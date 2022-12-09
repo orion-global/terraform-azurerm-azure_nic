@@ -1,54 +1,73 @@
-# Repositorio plantilla para la creación de nuevos módulos de Terraform
-Este repositorio tiene como finalidad, guiar en el proceso de creación de un nuevo módulo de Terraform, brindando indicaciones así como la estructura de archivos y carpetas que se deben contener para una correcta conexión y funcionalidad.
+# Módulo para la creación de NIC en Azure
+Este módulo crea una interfaz de red en Azure. El recurso a emplear es [azurerm_network_interface](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface).
 
-## Uso e instalación
-Para la instalación deberá conectarse el repositorio con el registro privado de la organización de Terraform Cloud. Para ello deberá tenerse las siguientes consideraciones:
-* Usar esta plantilla para la estructura de archivos
-  * El repositorio en si mismo es el módulo.
-  * En caso emplee submódulos, estos ebdeberán cargarse en la carpeta submodules y cada uno contará con sus respectivos ejemplos.
-* Eliminar toda la información de guía desde la línea separadora hacia arriba, lo podrá identificar con el comentario "INICIO DE PLANTILLA DE DOCUMENTACIÓN" en el contenido del archivo Markdown.
-* El repositorio deberá tener la siguiente estructura en el nombre:
-  * terraform-_proveedor_-_nombre que se le dará al módulo sin guiones_
-* Para que sea funcional, deberá generar un nuevo _release_ usando _tags_ en Github
-  * Use [versiones de tipo semántica](https://semver.org/), por ejemplo: v1.0.0
-  * Para ello, ir a la página de _releases_ del repositorio ubicado en "/releases/new" y crear un nuevo _tag_
-    * Para nuevas versiones, siga la secuencia lógica de las versiones, por ejemplo: v1.0.0 > v1.0.1
-    * En el campo de título, el nombre del tag, por ejemplo: v1.0.0
-    * En el campo de descripción, indique los detalles de la nueva versión y los cambios efectuados.
+Aquí está la lista de parámetros totales para su referencia:
+* https://github.com/hashicorp/terraform-provider-azurerm/blob/main/website/docs/r/network_interface.html.markdown
 
-<!-- INICIO DE PLANTILLA DE DOCUMENTACIÓN -->
-
-# _Insertar el nombre del módulo_
-Agregar breve descripción del módulo y los recursos que creará.
+---
+**NOTA**: Módulo aún en desarrollo, se recomienda no emplearlo en entornos de producción.
+---
 
 ## Usage
 
 ```hcl
-Agregar el uso del módulo
+module "module_test" {
+  source          = "../../terraform-azurerm-azure_nic"
+  network_rg_name = "test-rg"
+  network_name    = "test-vnet"
+  subnet_name     = "test-subnet"
+  tags = {
+    "test" = "test"
+  }
+}
 ```
 
-## Examples
-
-- [Ejemplo 01](https://github.com/orion-global/terraform-module-template/tree/prod/examples/example-001): Este es un primer ejemplo
-
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-| Name      | Version  |
-| --------- | -------- |
-| terraform | >= X.X.X |
+| Name                                                                      | Version  |
+| ------------------------------------------------------------------------- | -------- |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm)       | >= 3.23  |
 
 ## Providers
 
-| Name | Version  |
-| ---- | -------- |
-| aws  | >= X.X.X |
+| Name                                                          | Version |
+| ------------------------------------------------------------- | ------- |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.23 |
 
 ## Modules
 
-| Name   | Source                           | Version |
-| ------ | -------------------------------- | ------- |
-| modulo | ./modules/eks-managed-node-group | n/a     |
+No modules.
 
+## Resources
+
+| Name                                                                                                                                | Type        |
+| ----------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| [azurerm_network_interface.nic](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface)  | resource    |
+| [azurerm_resource_group.vnet_rg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group) | data source |
+| [azurerm_subnet.subnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subnet)                  | data source |
+| [azurerm_virtual_network.vnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/virtual_network)  | data source |
+
+## Inputs
+
+| Name                                                                                            | Description                                                                                  | Type          | Default | Required |
+| ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ------------- | ------- | :------: |
+| <a name="input_network_name"></a> [network\_name](#input\_network\_name)                        | Name of the Virtual Network for the VM                                                       | `string`      | `null`  |    no    |
+| <a name="input_network_rg_name"></a> [network\_rg\_name](#input\_network\_rg\_name)             | Name of the resource group where the network is located                                      | `string`      | `null`  |    no    |
+| <a name="input_nic_name"></a> [nic\_name](#input\_nic\_name)                                    | Name of the NIC to be created                                                                | `string`      | `null`  |    no    |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Name of the resource group where the NIC will be created                                     | `string`      | `null`  |    no    |
+| <a name="input_subnet_name"></a> [subnet\_name](#input\_subnet\_name)                           | Name of the Subnet for the VM. Must be part of the network\_name                             | `string`      | `null`  |    no    |
+| <a name="input_tags"></a> [tags](#input\_tags)                                                  | (Optional) A mapping of tags to assign to the resource. Use the map of {tag = value} format. | `map(string)` | `{}`    |    no    |
+
+## Outputs
+
+| Name                                                                               | Description                                     |
+| ---------------------------------------------------------------------------------- | ----------------------------------------------- |
+| <a name="output_nic_id"></a> [nic\_id](#output\_nic\_id)                           | The ID of the Network Interface                 |
+| <a name="output_nic_name"></a> [nic\_name](#output\_nic\_name)                     | The name of the Network Interface               |
+| <a name="output_nic_private_ip"></a> [nic\_private\_ip](#output\_nic\_private\_ip) | The private IP address of the Network Interface |
+<!-- END_TF_DOCS -->
 ## License
 
 MIT Licensed. See [LICENSE](https://github.com/orion-global/terraform-module-template/tree/prod/LICENSE) for full details.
