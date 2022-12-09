@@ -12,6 +12,12 @@ variable "tags" {
 # Network variables
 #------------------------------------------------------------------------------------------
 
+variable "create_resource_group" {
+  description = "Action for creation or not of the resource group"
+  type        = bool
+  default     = false
+}
+
 variable "resource_group_name" {
   description = "Name of the resource group where the NIC will be created"
   type        = string
