@@ -31,15 +31,25 @@ data "azurerm_subnet" "subnet" {
 #------------------------------------------------------------------------------------------
 
 resource "azurerm_network_interface" "nic" {
-  name                = local._nic_name
-  location            = data.azurerm_virtual_network.vnet.location
-  resource_group_name = local._nic_rg_name
+  name                          = local._nic_name
+  location                      = data.azurerm_virtual_network.vnet.location
+  resource_group_name           = local._nic_rg_name
+  enable_accelerated_networking = var.enable_accelerated_networking
+  enable_ip_forwarding          = var.enable_ip_forwarding
 
   ip_configuration {
     name                          = "internal"
     subnet_id                     = data.azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
   }
+
+  #------------------------------------------------------------------------------------------
+  # Construcción de la interfaz de red
+  #------------------------------------------------------------------------------------------
+  # ip_configuration 
+  # dns_servers 
+  # edge_zone 
+  # internal_dns_name_label 
 
   tags = var.tags
 }

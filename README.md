@@ -1,6 +1,9 @@
 # Módulo para la creación de NIC en Azure
 Este módulo crea una interfaz de red en Azure. El recurso a emplear es [azurerm_network_interface](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/network_interface).
 
+Aquí está la lista de parámetros totales para su referencia:
+* https://github.com/hashicorp/terraform-provider-azurerm/blob/main/website/docs/r/network_interface.html.markdown
+
 ---
 **NOTA**: Módulo aún en desarrollo, se recomienda no emplearlo en entornos de producción.
 ---

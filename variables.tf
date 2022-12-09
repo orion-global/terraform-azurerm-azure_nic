@@ -41,3 +41,15 @@ variable "subnet_name" {
   type        = string
   default     = null
 }
+
+variable "enable_accelerated_networking" {
+  description = "Enable or disable accelerated networking"
+  type        = bool
+  default     = false
+}
+
+variable "enable_ip_forwarding" {
+  description = "Enable or disable IP forwarding"
+  type        = bool
+  default     = false
+}
