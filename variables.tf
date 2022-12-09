@@ -2,6 +2,12 @@
 # Default variables
 #------------------------------------------------------------------------------------------
 
+variable "location" {
+  description = "The Azure location where all resources in this example should be created."
+  type        = string
+  default     = null
+}
+
 variable "tags" {
   description = "(Optional) A mapping of tags to assign to the resource. Use the map of {tag = value} format."
   type        = map(string)
