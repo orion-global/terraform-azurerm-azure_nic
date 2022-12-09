@@ -5,7 +5,6 @@ module "module_test" {
   subnet_name                   = "test-subnet"
   resource_group_name           = "test-rg-2"
   location_name                 = "eastus"
-  create_resource_group         = true
   enable_accelerated_networking = true
   enable_ip_forwarding          = true
   tags = {
