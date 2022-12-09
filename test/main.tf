@@ -6,5 +6,4 @@ module "module_test" {
   tags = {
     "test" = "test"
   }
-
 }
