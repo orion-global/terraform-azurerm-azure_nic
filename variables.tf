@@ -2,6 +2,12 @@
 # Default variables
 #------------------------------------------------------------------------------------------
 
+variable "location_name" {
+  description = "The Azure location where all resources in this example should be created."
+  type        = string
+  default     = null
+}
+
 variable "tags" {
   description = "(Optional) A mapping of tags to assign to the resource. Use the map of {tag = value} format."
   type        = map(string)
@@ -11,6 +17,12 @@ variable "tags" {
 #------------------------------------------------------------------------------------------
 # Network variables
 #------------------------------------------------------------------------------------------
+
+variable "create_resource_group" {
+  description = "Action for creation or not of the resource group"
+  type        = bool
+  default     = false
+}
 
 variable "resource_group_name" {
   description = "Name of the resource group where the NIC will be created"
